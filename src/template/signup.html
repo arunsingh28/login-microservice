@@ -9,12 +9,41 @@
 </head>
 
 <body>
-    <form action="">
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="email">
-        <input type="text" placeholder="password">
+    <form name="register" onsubmit="return handleSubmit(event)">
+        <input type="text" placeholder="Name" id="name">
+        <input type="text" placeholder="email" id="email">
+        <input type="text" placeholder="password" id="password">
         <button type="submit">Create account</button>
     </form>
 </body>
+
+<script>
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const username = document.forms['register']['email'].value;
+        const password = document.forms['register']['password'].value;
+        const name = document.forms['register']['name'].value;
+
+        if (username == '' || password == '' || name == '') {
+            alert('Please fill all the fields');
+            return false;
+        }
+        const f = await fetch('http://localhost/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                name: name
+            })
+        });
+
+        const data = await f.json();
+        console.log(await data)
+    }
+</script>
+
 
 </html>
