@@ -1,8 +1,8 @@
 import express from 'express';
 import { http } from '../config/http'
-import { router } from './Routes/index.routes';
-import { apiRouter } from './Routes/api';
-
+import { router } from './controllers/index.routes';
+import { apiRouter } from './controllers/api';
+import { dbConection } from '../config/database'
 // server start config
 const app = express();
 http(app);
@@ -11,3 +11,7 @@ router(app);
 
 // main apis
 apiRouter(app)
+
+
+// database connection
+dbConection()
