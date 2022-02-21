@@ -32,13 +32,20 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: email,
+                email: username,
                 password: password
             })
         });
 
         const data = await f.json();
-        console.log(await data)
+
+        const div = document.createElement('p');
+        div.innerHTML = await data.message;
+        document.body.appendChild(div);
+
+        setTimeout(() => {
+            div.remove();
+        }, 3000);
     }
 </script>
 
