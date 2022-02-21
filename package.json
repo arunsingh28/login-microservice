@@ -1,15 +1,30 @@
 {
   "name": "login",
   "version": "1.0.0",
-  "description": "",
+  "description": "login microservice",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/src/app.js",
+    "build": "tsc -p .",
+    "dev": "nodemon -L --config nodmeon.json src/app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Arun Pratap Singh",
+  "license": "MIT",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^17.0.19",
+    "@types/typescript": "^2.0.0",
+    "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.2"
   }
 }
