@@ -1,4 +1,5 @@
 import { Express, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
 import _user, { IUser } from '../models/user.model'
 
 export function apiRouter(router: Express) {
