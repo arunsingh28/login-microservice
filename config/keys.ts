@@ -1,3 +1,6 @@
 export const key = {
-    JWT_SECRET: 'secret'
+    JWT: {
+        SECRET: 'secret',
+        EXPIRES: '1h'
+    }
 }

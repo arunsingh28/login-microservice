@@ -1,6 +1,7 @@
 import { Express, Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
 import _user, { IUser } from '../models/user.model'
+import { getToken } from '../utils/jwt'
+
 
 export function apiRouter(router: Express) {
     router.post('/login', async (req: Request, res: Response) => {
@@ -12,6 +13,8 @@ export function apiRouter(router: Express) {
             if (!isUser) {
                 return res.status(400).json({ message: 'Invalid email or password' })
             }
+            // create token
+            const token = await getToken(isUser.id)
             return res.status(200).json({ message: 'Login Success' })
         }
     })
@@ -35,3 +38,4 @@ export function apiRouter(router: Express) {
         }
     })
 }
+
