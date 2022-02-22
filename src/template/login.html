@@ -40,11 +40,18 @@
         const data = await f.json();
 
         const div = document.createElement('p');
-        div.innerHTML = await data.message;
+        if (data.auth == true) {
+            div.innerHTML = 'You are being redirected to your destination page in 3 seconds';
+        } else {
+            div.innerHTML = await data.message;
+        }
         document.body.appendChild(div);
 
         setTimeout(() => {
             div.remove();
+        }, 3000);
+        setInterval(() => {
+            window.location.href = 'http://localhost/create';
         }, 3000);
     }
 </script>
