@@ -41,7 +41,13 @@
 
         const div = document.createElement('p');
         if (data.auth == true) {
-            div.innerHTML = 'You are being redirected to your destination page in 3 seconds';
+            let seconds = 3;
+            setInterval(() => {
+                div.innerHTML = `<mark>You are being redirected to your destination page in ${seconds--} seconds</mark>`;
+            }, 1000);
+            setInterval(() => {
+                window.location.href = 'http://localhost/create';
+            }, 3000);
         } else {
             div.innerHTML = await data.message;
         }
@@ -50,9 +56,7 @@
         setTimeout(() => {
             div.remove();
         }, 3000);
-        setInterval(() => {
-            window.location.href = 'http://localhost/create';
-        }, 3000);
+
     }
 </script>
 
