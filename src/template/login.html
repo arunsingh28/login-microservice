@@ -6,15 +6,143 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login interface</title>
-    <script src="/js/login.js"></script>
 </head>
 
 <body>
-    <form name="login" onsubmit="return handleSubmit(event)">
-        <input type="text" placeholder="Enter username" id="email">
-        <input type="text" placeholder="Enter password" id="password">
-        <button type="submit">Login</button>
-    </form>
+    <section class="root">
+        <div class="login">
+            <form name="login" onsubmit="return handleSubmit(event)">
+                <input type="text" placeholder="Enter username" id="email">
+                <input type="text" placeholder="Enter password" id="password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="register">
+            <div class="l google">google</div>
+            <div class="l facebook">facebook</div>
+        </div>
+        <div>
+            <p>don't have account <a>Create here.</a></p>
+        </div>
+    </section>
 </body>
+
+<script>
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const username = document.forms['login']['email'].value;
+        const password = document.forms['login']['password'].value;
+
+        if (username == '' || password == '') {
+            alert('Please fill all the fields');
+            return false;
+        }
+        const f = await fetch('http://localhost/login', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                "token": document.cookie.split('.')[1]
+            },
+            body: JSON.stringify({
+                email: username,
+                password: password,
+            })
+        });
+
+        const data = await f.json();
+        console.log(data)
+
+        console.log('Cookies:', document.cookie)
+
+        const div = document.createElement('p');
+        if (data.auth == true) {
+            let seconds = 3;
+            setInterval(() => {
+                div.innerHTML = `<mark>You are being redirected to your destination page in ${seconds--} seconds</mark>`;
+            }, 1000);
+            setInterval(() => {
+                window.location.href = 'http://localhost/create';
+            }, 3000);
+        } else {
+            div.innerHTML = await data.message;
+        }
+        document.body.appendChild(div);
+
+        setTimeout(() => {
+            div.remove();
+        }, 3000);
+
+    }
+</script>
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    body{
+        display: flex;
+        justify-content: center;
+    }
+    .root{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 400px;
+        background-color: rgb(224, 217, 217);
+        margin: 200px auto 0;
+        border-radius: 3px;
+    }
+    .login{
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        background: rgb(21, 104, 228);
+        color: #fff;
+        margin-top: 20px;
+
+    }
+    input{
+        height: 30px;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 4px;
+        border: none;
+        padding: 10px;
+    }
+    input:focus-visible{
+        border: none;
+    }
+    .register{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 300px;
+        height: 100px;
+        border-radius: 10px;
+    }
+    .l{
+        background-color: rgb(150, 227, 250);
+        padding: 10px 40px;
+        border-radius: 4px;
+    }
+</style>
 
 </html>

@@ -26,7 +26,6 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.statics.findUser = async function (email: string, password: string) {
-    console.log('findUser', email, password)
     const user = await this.findOne({ email })
     if (!user) return null
     const isMatch = await bcrypt.compare(password, user.password)

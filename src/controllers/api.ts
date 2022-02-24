@@ -6,6 +6,7 @@ import { getToken } from '../utils/jwt'
 export function apiRouter(router: Express) {
     router.post('/login', async (req: Request, res: Response) => {
         const { email, password } = req.body
+        console.log(req.headers.cookie)
         if (email === '' || password === '') {
             return res.status(400).json({ message: 'Please fill all fields', auth: false })
         } else {
@@ -15,7 +16,10 @@ export function apiRouter(router: Express) {
             }
             // create token
             const token = await getToken(isUser._id)
-            res.cookie('refreshToken', token, { httpOnly: true });
+            res.cookie('refreshToken', token, {
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+                // httpOnly: true
+            });
             return res.status(200).json({ message: 'Login Success', auth: true })
         }
     })
