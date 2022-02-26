@@ -11,10 +11,15 @@
 <body>
     <section class="root">
         <div class="login">
+            <h1>Sign in</h1>
+            <p>Use your Arun's Network Account</p>
             <form name="login" onsubmit="return handleSubmit(event)">
                 <input type="text" placeholder="Enter username" id="email">
-                <input type="text" placeholder="Enter password" id="password">
-                <button type="submit">Login</button>
+                <a href="/forgot-email">Forgot email?</a>
+                <div class="btn-next">
+                    <a href="/create-account">Create account</a>
+                    <button type="submit">Next</button>
+                </div>
             </form>
         </div>
         <div class="register">
@@ -73,75 +78,25 @@
             div.remove();
         }, 3000);
 
+        // genrate UTM params
+        const utm = {
+            utm_source: '',
+            utm_medium: '',
+            utm_campaign: '',
+            utm_content: '',
+            utm_term: ''
+        };
+        
+    
+
     }
 </script>
 
 <style>
-    *{
+    * {
         margin: 0;
         padding: 0;
         font-family: Arial, Helvetica, sans-serif;
-    }
-    body{
-        display: flex;
-        justify-content: center;
-    }
-    .root{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 400px;
-        background-color: rgb(224, 217, 217);
-        margin: 200px auto 0;
-        border-radius: 3px;
-    }
-    .login{
-        width: 100%;
-        height: 300px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-    }
-    form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    button{
-        width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        border: none;
-        background: rgb(21, 104, 228);
-        color: #fff;
-        margin-top: 20px;
-
-    }
-    input{
-        height: 30px;
-        width: 100%;
-        margin-top: 20px;
-        border-radius: 4px;
-        border: none;
-        padding: 10px;
-    }
-    input:focus-visible{
-        border: none;
-    }
-    .register{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 300px;
-        height: 100px;
-        border-radius: 10px;
-    }
-    .l{
-        background-color: rgb(150, 227, 250);
-        padding: 10px 40px;
-        border-radius: 4px;
     }
 </style>
 
