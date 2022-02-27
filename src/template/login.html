@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login interface</title>
+    <title>Login Chalange</title>
 </head>
 
 <body>
@@ -36,13 +36,11 @@
     async function handleSubmit(e) {
         e.preventDefault();
         const username = document.forms['login']['email'].value;
-        const password = document.forms['login']['password'].value;
-
         if (username == '' || password == '') {
             alert('Please fill all the fields');
             return false;
         }
-        const f = await fetch('http://localhost/login', {
+        const f = await fetch(`http://localhost/verify/id/${username}`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -51,14 +49,20 @@
             },
             body: JSON.stringify({
                 email: username,
-                password: password,
             })
         });
 
         const data = await f.json();
         console.log(data)
 
-        console.log('Cookies:', document.cookie)
+        // generate UTM
+        const utm = {
+            utm_source: 'utm_source',
+            utm_medium: 'utm_medium',
+            utm_campaign: 'utm_campaign',
+            utm_content: 'utm_content',
+            utm_term: 'utm_term',
+        };
 
         const div = document.createElement('p');
         if (data.auth == true) {
@@ -67,7 +71,7 @@
                 div.innerHTML = `<mark>You are being redirected to your destination page in ${seconds--} seconds</mark>`;
             }, 1000);
             setInterval(() => {
-                window.location.href = 'http://localhost/create';
+                window.location.href = 'http://localhost/api/poison-pill&' + JSON.stringify(utm);
             }, 3000);
         } else {
             div.innerHTML = await data.message;
@@ -78,16 +82,6 @@
             div.remove();
         }, 3000);
 
-        // genrate UTM params
-        const utm = {
-            utm_source: '',
-            utm_medium: '',
-            utm_campaign: '',
-            utm_content: '',
-            utm_term: ''
-        };
-        
-    
 
     }
 </script>
