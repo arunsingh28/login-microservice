@@ -2,3 +2,7 @@ node_modules
 build
 
 target
+
+
+build
+client/build
