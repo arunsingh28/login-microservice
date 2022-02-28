@@ -7,7 +7,8 @@
         "coverage/"
     ],
     "watch": [
-        "src/"
+        "src/",
+        "client/src/"
     ],
     "exeMap": {
         "ts": "node -r ts-node/register"
