@@ -1,0 +1,7 @@
+@import "./mixin/reponsive";
+
+._loginScreen {
+    @include mobile {
+        @include reponsive(100%, 100%);
+    }
+}

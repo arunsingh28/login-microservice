@@ -1,14 +1,15 @@
 import React from 'react';
-import './App.css';
 
 function App() {
-  
+
   const handleSubmit = async () => {
 
   }
   return (
-    <div className="App">
-      <form onClick={handleSubmit}></form>
+    <div className="_loginScreen">
+      <div className="_loginScreen__container">
+        <h1>google</h1>
+      </div>
     </div>
   )
 }

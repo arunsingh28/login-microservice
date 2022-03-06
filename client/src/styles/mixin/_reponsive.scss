@@ -1,0 +1,8 @@
+@use "../constant/_size.scss" as size;
+
+// view on small device
+@mixin mobile {
+    @media screen and (max-width: size.) {
+        @content;
+    }
+}
