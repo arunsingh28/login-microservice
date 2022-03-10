@@ -1,16 +1,10 @@
 import React from 'react';
+import Router from './router/Router';
+
 
 function App() {
-
-  const handleSubmit = async () => {
-
-  }
   return (
-    <div className="_loginScreen">
-      <div className="_loginScreen__container">
-        <h1>google</h1>
-      </div>
-    </div>
+    <Router />
   )
 }
 
