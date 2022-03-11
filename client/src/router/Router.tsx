@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import EmailVerify from '../components/EmailVerify'
-import PasswordVerify from '../components/PasswordVerify'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import EmailVerify from '../components/EmailVerify';
+import PasswordVerify from '../components/PasswordVerify';
 
 const Router = () => {
   return (

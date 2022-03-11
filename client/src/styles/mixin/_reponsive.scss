@@ -2,7 +2,7 @@
 
 // view on small device
 @mixin mobile {
-    @media screen and (max-width: 600px) {
+    @media screen and (min-width: 600px) {
         @content;
     }
 }

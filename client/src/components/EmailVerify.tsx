@@ -2,7 +2,13 @@ import React from 'react'
 
 const EmailVerify = () => {
   return (
-    <div>EmailVerify</div>
+    <div className='root_wrapper'>
+      <div className='email_wrapper'>
+        <div className='email_header'>
+          <h2>Arun' Auth</h2>
+        </div>
+      </div>
+    </div>
   )
 }
 
