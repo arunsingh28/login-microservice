@@ -1,29 +1,62 @@
 import { Express, Request, Response } from 'express'
 import _user, { IUser } from '../models/user.model'
-import { getToken } from '../utils/jwt'
+import { getToken, Itoken, verifyToken } from '../utils/jwt'
 
 
 export function apiRouter(router: Express) {
-    router.post('/e/challenge/v1/verify', async (req: Request, res: Response) => {
+    router.post('/e/challenge/v1/verify/?', async (req: Request, res: Response) => {
         const { email } = req.body
-        const { e: mail } = req.query
+        const { e: mail, url } = req.query
+        if (email === '' || mail === '' || email === undefined || mail === undefined || email === null || mail === null) {
+            return res.status(400).send({ message: 'Please fill all fields' })
+        }
         if (mail === email) {
-            const user = await _user.findOne({ email })
-            if (user) {
-                const token = getToken(user._id)
-                res.json({ message: 'Login Success', auth: true, token })
+            const isUser = await _user.findOne({ email })
+            console.log(isUser)
+            if (isUser) {
+                const token = await getToken(isUser._id)
+                res.json({ authState: 1, token })
             } else {
                 res.status(404).send('User not found')
+            }
+        } else {
+            return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', callbackUrl: url })
+        }
+    })
+
+    router.post('/p/challenge/v2/verify/?', async (req: Request, res: Response) => {
+        const { password } = req.body;
+        const { p: passWord, url, token } = req.query as any;
+        if (password === '' || passWord === '' || password === undefined || passWord === undefined || password === null || passWord === null) {
+            return res.status(400).send({ message: 'Please fill all fields' })
+        } else {
+            const tokenData = await verifyToken(token);
+            console.log(tokenData)
+            if (<any>tokenData){
+                const isUser = await _user.findOne({ _id: tokenData })
+                if (isUser) {
+                    if (isUser.password === passWord) {
+                        const token = await getToken(isUser._id)
+                        res.json({ authState: 1, token })
+                    } else {
+                        res.status(404).send('Password not match')
+                    }
+                } else {
+                    res.status(404).send('User not found')
+                }
+            }else{
+                return res.status(401).send({ message: 'Temperd token' })
             }
         }
     })
 
+
     router.post('/register', async (req: Request, res: Response) => {
         const { email, name, password } = req.body
-        if (email === '' || name === '' || password === '') {
+        if (email === '' || name === '' || password === '' || email === undefined || name === undefined || password === undefined || email === null || name === null || password === null) {
             return res.status(400).send({ message: 'Please fill all fields' })
         }
-        if (password.length < 6) {
+        if (password?.length < 6) {
             return res.status(400).send({ message: 'Please enter 6 charcter' })
         }
         const isUser = await (<IUser><unknown>_user).findUser(email, password);
