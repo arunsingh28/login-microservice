@@ -6,7 +6,7 @@ export interface IUser extends mongoose.Document {
     password: string;
     name: string;
     findUser: (email: string, password: string) => Promise<IUser>;
-    findUserById: (id: string) => Promise<IUser>;
+    findUserById: (id: string, password: string) => Promise<IUser>;
 }
 
 const UserSchema = new mongoose.Schema({
@@ -42,7 +42,7 @@ UserSchema.statics.findUserById = async function (id: string, password: string) 
     // check return policy 
     return {
         name: user.name,
-        email: user.email, 
+        email: user.email,
     }
 }
 
