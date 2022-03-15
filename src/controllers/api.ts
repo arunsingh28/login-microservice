@@ -20,7 +20,7 @@ export function apiRouter(router: Express) {
                 res.status(404).send('User not found')
             }
         } else {
-            return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', callbackUrl: url })
+            return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', fallBackUrl: url })
         }
     })
 
@@ -31,18 +31,13 @@ export function apiRouter(router: Express) {
             return res.status(400).send({ message: 'Please fill all fields' })
         } else {
             const tokenData = await verifyToken(token);
-            console.log(tokenData)
             if (<any>tokenData){
                 const isUser = await _user.findOne({ _id: tokenData })
+                const isPassword = await (<IUser><unknown>_user).findUserById(isUser.password)
                 if (isUser) {
-                    if (isUser.password === passWord) {
-                        const token = await getToken(isUser._id)
-                        res.json({ authState: 1, token })
-                    } else {
-                        res.status(404).send('Password not match')
+                    if (isPassword === passWord) {
+                        res.json({ authState: 0, callbackUrl: url })
                     }
-                } else {
-                    res.status(404).send('User not found')
                 }
             }else{
                 return res.status(401).send({ message: 'Temperd token' })

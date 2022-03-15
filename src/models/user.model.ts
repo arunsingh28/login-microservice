@@ -34,10 +34,16 @@ UserSchema.statics.findUser = async function (email: string, password: string) {
     return user
 }
 
-UserSchema.statics.findUserById = async function (id: string) {
+UserSchema.statics.findUserById = async function (id: string, password: string) {
     const user = await this.findOne({ _id: id })
     if (!user) return null
-    return user
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) return null
+    // check return policy 
+    return {
+        name: user.name,
+        email: user.email, 
+    }
 }
 
 UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
