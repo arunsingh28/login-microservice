@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import _user, { IUser } from '../models/user.model'
-import { getToken, Itoken, verifyToken } from '../utils/jwt'
+import { getToken, verifyToken } from '../utils/jwt'
 
 
 export function apiRouter(router: Express) {
