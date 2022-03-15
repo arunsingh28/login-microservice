@@ -14,10 +14,16 @@ export async function getToken(id: string) {
     })
 }
 
+export async function refreshToken(oldToken: string) {
+    return jwt.sign({ id: oldToken }, key.JWT.SECRET, {
+        expiresIn: key.JWT.REFRESH_EXPIRES
+    })
+}
+
 export async function verifyToken(token: string) {
     return jwt.verify(token, key.JWT.SECRET, (err, decoded: Itoken) => {
         if (err) {
-            return false
+            return false;
         }
         return decoded.id
     })

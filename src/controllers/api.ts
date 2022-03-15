@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import _user, { IUser } from '../models/user.model'
-import { getToken, Itoken, verifyToken } from '../utils/jwt'
+import { getToken, verifyToken } from '../utils/jwt'
 
 
 export function apiRouter(router: Express) {
@@ -17,34 +17,33 @@ export function apiRouter(router: Express) {
                 const token = await getToken(isUser._id)
                 res.json({ authState: 1, token })
             } else {
-                res.status(404).send('User not found')
+                res.status(404).json({ message: 'User not found' })
             }
         } else {
-            return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', callbackUrl: url })
+            return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', fallBackUrl: url })
         }
     })
 
     router.post('/p/challenge/v2/verify/?', async (req: Request, res: Response) => {
         const { password } = req.body;
-        const { p: passWord, url, token } = req.query as any;
-        if (password === '' || passWord === '' || password === undefined || passWord === undefined || password === null || passWord === null) {
+        const { url, token } = req.query as any;
+        if (password === '' || password === undefined || password === null) {
             return res.status(400).send({ message: 'Please fill all fields' })
         } else {
-            const tokenData = await verifyToken(token);
-            console.log(tokenData)
-            if (<any>tokenData){
-                const isUser = await _user.findOne({ _id: tokenData })
+            const userId = await verifyToken(token);
+            if (<any>userId) {
+                const isUser = await (<IUser><unknown>_user).findUserById(<any>userId, password)
                 if (isUser) {
-                    if (isUser.password === passWord) {
-                        const token = await getToken(isUser._id)
-                        res.json({ authState: 1, token })
-                    } else {
-                        res.status(404).send('Password not match')
-                    }
+                    res.json({
+                        authState: 0, callbackUrl: url, data: [
+                            // return allowed data
+                            isUser
+                        ]
+                    })
                 } else {
-                    res.status(404).send('User not found')
+                    res.status(404).json({ message: 'incorrect password', authState: 1, errorCode: 'ERR_INCORRECT_PASSWORD', fallBackUrl: url })
                 }
-            }else{
+            } else {
                 return res.status(401).send({ message: 'Temperd token' })
             }
         }
