@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express'
 import _user, { IUser } from '../models/user.model'
-import { getToken, verifyToken } from '../utils/jwt'
+import { getToken, Itoken, verifyToken } from '../utils/jwt'
 
 
 export function apiRouter(router: Express) {
@@ -23,19 +23,30 @@ export function apiRouter(router: Express) {
             return res.json({ message: 'Data parser error', state: 1, errorCode: 'ERR_DATA_PARSER', callbackUrl: url })
         }
     })
-    interface Itoken {
-        id: string
-        iat: number
-        exp: number
-    }
+
     router.post('/p/challenge/v2/verify/?', async (req: Request, res: Response) => {
         const { password } = req.body;
         const { p: passWord, url, token } = req.query as any;
         if (password === '' || passWord === '' || password === undefined || passWord === undefined || password === null || passWord === null) {
             return res.status(400).send({ message: 'Please fill all fields' })
         } else {
-            const tokenData = await verifyToken(token)
-            console.log(tokenData.id)
+            const tokenData = await verifyToken(token);
+            console.log(tokenData)
+            if (<any>tokenData){
+                const isUser = await _user.findOne({ _id: tokenData })
+                if (isUser) {
+                    if (isUser.password === passWord) {
+                        const token = await getToken(isUser._id)
+                        res.json({ authState: 1, token })
+                    } else {
+                        res.status(404).send('Password not match')
+                    }
+                } else {
+                    res.status(404).send('User not found')
+                }
+            }else{
+                return res.status(401).send({ message: 'Temperd token' })
+            }
         }
     })
 
