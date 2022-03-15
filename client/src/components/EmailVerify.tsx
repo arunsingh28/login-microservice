@@ -1,6 +1,20 @@
 import React from 'react'
 
 const EmailVerify = () => {
+
+  const [email, setEmail] = React.useState('')
+  const [isError, setIsError] = React.useState(false)
+
+  const handleNextClick = () => {
+    if (email.length === 0) {
+      setIsError(true)
+      alert('true')
+    } else {
+      alert('false')
+      setIsError(false)
+    }
+  }
+
   return (
     <div className='root_wrapper'>
       <div className='email_wrapper'>
@@ -19,7 +33,7 @@ const EmailVerify = () => {
             <a href="/">Create account</a>
           </div>
           <div className='next_btn'>
-            <button>Next</button>
+            <button onClick={handleNextClick}>Next</button>
           </div>
         </div>
       </div>
