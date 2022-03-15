@@ -6,6 +6,7 @@ export interface IUser extends mongoose.Document {
     password: string;
     name: string;
     findUser: (email: string, password: string) => Promise<IUser>;
+    findUserById: (id: string) => Promise<IUser>;
 }
 
 const UserSchema = new mongoose.Schema({
@@ -30,6 +31,12 @@ UserSchema.statics.findUser = async function (email: string, password: string) {
     if (!user) return null
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) return null
+    return user
+}
+
+UserSchema.statics.findUserById = async function (id: string) {
+    const user = await this.findOne({ _id: id })
+    if (!user) return null
     return user
 }
 

@@ -16,7 +16,7 @@ export async function getToken(id: string) {
 
 export async function refreshToken(oldToken: string) {
     return jwt.sign({ id: oldToken }, key.JWT.SECRET, {
-        expiresIn: key.JWT.EXPIRES
+        expiresIn: key.JWT.REFRESH_EXPIRES
     })
 }
 

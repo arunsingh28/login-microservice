@@ -9,4 +9,7 @@ export function router(router: Express) {
     router.get('/create', (req: Request, res: Response) => {
         res.sendFile(path.join(__dirname, '../template/signup.html'));
     })
+    router.get('/mini',(req: Request, res: Response) => {
+        res.sendFile(path.join(__dirname, '../template/mini.html'));
+    })
 }
