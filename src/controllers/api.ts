@@ -48,8 +48,7 @@ export function apiRouter(router: Express) {
             }
         }
     })
-
-
+// update this API
     router.post('/register', async (req: Request, res: Response) => {
         const { email, name, password } = req.body
         if (email === '' || name === '' || password === '' || email === undefined || name === undefined || password === undefined || email === null || name === null || password === null) {
