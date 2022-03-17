@@ -19,22 +19,18 @@ const EmailVerify = () => {
     <div className='root_wrapper'>
       <div className='email_wrapper'>
         <div className='email_header'>
-          <h2>Arun' Auth</h2>
+          <h2>Arun's Auth</h2>
           <p>Use your A Auth service Account</p>
         </div>
         <div className='email_form'>
-          <input type="text" placeholder='Email address' />
+          <input type="text" placeholder='Email address' className='email_input' />
           <div>
             <a href="/">Forgot email ?</a>
           </div>
         </div>
         <div className='other_btn'>
-          <div className='c_account'>
-            <a href="/">Create account</a>
-          </div>
-          <div className='next_btn'>
-            <button onClick={handleNextClick}>Next</button>
-          </div>
+          <a href="/">Create account</a>
+          <button onClick={handleNextClick}>Next</button>
         </div>
       </div>
     </div>

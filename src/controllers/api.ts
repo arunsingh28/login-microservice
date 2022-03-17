@@ -44,12 +44,11 @@ export function apiRouter(router: Express) {
                     res.status(404).json({ message: 'incorrect password', authState: 1, errorCode: 'ERR_INCORRECT_PASSWORD', fallBackUrl: url })
                 }
             } else {
-                return res.status(401).send({ message: 'Temperd token' })
+                return res.status(401).send({ message: 'Tempered token' })
             }
         }
     })
-
-
+// update this API
     router.post('/register', async (req: Request, res: Response) => {
         const { email, name, password } = req.body
         if (email === '' || name === '' || password === '' || email === undefined || name === undefined || password === undefined || email === null || name === null || password === null) {
