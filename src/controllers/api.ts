@@ -44,7 +44,7 @@ export function apiRouter(router: Express) {
                     res.status(404).json({ message: 'incorrect password', authState: 1, errorCode: 'ERR_INCORRECT_PASSWORD', fallBackUrl: url })
                 }
             } else {
-                return res.status(401).send({ message: 'Temperd token' })
+                return res.status(401).send({ message: 'Tempered token' })
             }
         }
     })
