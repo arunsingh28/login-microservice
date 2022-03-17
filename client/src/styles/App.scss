@@ -58,7 +58,7 @@
             .email_input {
                 width: 100%;
                 height: 50px;
-                margin: 10px auto;
+                margin: 12px auto;
                 padding: 10px;
                 border: 1px solid rgb(112, 110, 110);
                 border-radius: 3px;
@@ -73,7 +73,6 @@
                 }
             }
             a {
-                margin: 10px auto;
                 text-decoration: none;
                 font-weight: bold;
                 color: #1a73e8;
@@ -103,6 +102,11 @@
                 border: none;
                 border-radius: 3px;
                 transition: all 0.1s ease-in-out;
+                cursor: pointer;
+                &:hover {
+                    border-radius: 3px;
+                    background-color: #015fca;
+                }
             }
         }
         // end email_wrapper
