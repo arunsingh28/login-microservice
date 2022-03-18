@@ -1,23 +1,35 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import EmailVerify from '../components/EmailVerify';
 import PasswordVerify from '../components/PasswordVerify';
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import '../styles/App.scss'
+import { AnimatePresence, motion } from 'framer-motion'
+
 const Router = () => {
+  const location = useLocation()
   return (
-    <BrowserRouter>
-      <TransitionGroup>
-        <CSSTransition
-          timeout={300}
-          classNames="fade"
-        >
-          <Routes>
-            <Route path='/' element={<EmailVerify />} />
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={{
+        initial: { opacity: 0 },
+        in: { opacity: 1 },
+        out: { opacity: 0 }
+      }}
+      transition={{
+        type: "spring",
+        damping: 10,
+        stiffness: 50
+      }}
+    >
+      <BrowserRouter>
+        <AnimatePresence exitBeforeEnter>
+          <Routes location={location} key={location.pathname}>
+            <Route element={<EmailVerify />} />
             <Route path='/password-verify' element={<PasswordVerify />} />
           </Routes>
-        </CSSTransition>
-      </TransitionGroup>
-    </BrowserRouter>
+        </AnimatePresence>
+      </BrowserRouter>
+    </motion.div>
   )
 }
 export default Router

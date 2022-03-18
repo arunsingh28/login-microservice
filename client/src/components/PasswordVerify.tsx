@@ -58,7 +58,7 @@ const PasswordVerify = () => {
           </div>
         </div>
         <div className='other_btn'>
-          <a href="http://localhost:80/register"></a>
+          <a href="/">back</a>
           <button onClick={handleLoginClick}>Login</button>
         </div>
       </div>
