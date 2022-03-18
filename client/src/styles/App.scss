@@ -6,6 +6,15 @@
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+}
 
 .root_wrapper {
     display: flex;
@@ -80,13 +89,13 @@
                 display: block;
                 margin: 10px 0;
             }
-            #error_message{
+            #error_message {
                 color: red;
                 font-size: 12px;
                 margin: 6px 0px 10px 0px;
                 display: flex;
                 align-items: center;
-                span{
+                span {
                     margin-left: 10px;
                 }
             }
