@@ -1,16 +1,30 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate, } from 'react-router-dom';
 import EmailVerify from '../components/EmailVerify';
 import PasswordVerify from '../components/PasswordVerify';
+import React from 'react';
 
 
 const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<EmailVerify />} />
-        <Route path='/password-verify' element={<PasswordVerify />} />
-      </Routes>
-    </BrowserRouter>
-  )
+  const [state, setState] = React.useState(localStorage.getItem('red_') || "false")
+
+  if (state == "true") {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<EmailVerify />} />
+          <Route path="/password-verify" element={<PasswordVerify />} />
+        </Routes>
+      </BrowserRouter>
+    )
+  }
+  else {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<EmailVerify />} />
+        </Routes>
+      </BrowserRouter>
+    )
+  }
 }
 export default Router

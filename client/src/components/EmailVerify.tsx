@@ -3,7 +3,6 @@ import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
 
 
-
 const EmailVerify = () => {
 
   const [email, setEmail] = React.useState('')
@@ -33,6 +32,7 @@ const EmailVerify = () => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
+      localStorage.setItem('red_', "true")
       return navigate('/password-verify')
     }
   }
@@ -50,7 +50,6 @@ const EmailVerify = () => {
             onChange={(e) => setEmail(e.target.value)}
             className='email_input'
             ref={inputErrorState}
-
           />
           {
             isError.length > 0 && (
