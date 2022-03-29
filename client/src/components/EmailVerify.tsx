@@ -1,7 +1,9 @@
 import React from 'react'
 import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
-
+import Cookies from 'universal-cookie'
+import getHost from '../utils/getHost'
+import apiCall from '../utils/axios'
 
 const EmailVerify = () => {
 
@@ -9,6 +11,13 @@ const EmailVerify = () => {
   const [isError, setIsError] = React.useState('')
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const navigate = useNavigate()
+
+
+  // localhost:80/e/challenge/v1/verify/?e=arunsingh28aug.as@gmail.co&url=localhost:80
+
+
+  // init cookies 
+  const cookies = new Cookies()
 
 
   React.useEffect(() => {
@@ -26,14 +35,18 @@ const EmailVerify = () => {
   }
 
   const handleNextClick = () => {
-    if (!email.length || email.includes('.') == false || email.includes('@') == false) {
+    if (!email.length || email.includes('.') === false || email.includes('@') === false) {
       setIsError('Enter valid email address')
       inputErrorState.current.focus()
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
-      localStorage.setItem('red_', "true")
-      return navigate('/password-verify')
+      apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`,email).then(()=>{
+        cookies.set('red_',true)
+        return navigate('/password-verify')
+      }).catch((e)=>{
+        console.log(e)
+      })
     }
   }
 
@@ -74,4 +87,8 @@ const EmailVerify = () => {
 
 export default EmailVerify
 
+
+function data(arg0: string, data: any, arg2: { email: string }) {
+  throw new Error('Function not implemented.')
+}
 

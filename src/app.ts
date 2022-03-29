@@ -13,6 +13,5 @@ router(app);
 // main apis
 apiRouter(app)
 
-
 // database connection
 dbConection()

@@ -11,6 +11,12 @@ const PasswordVerify = () => {
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const navigate = useNavigate()
 
+   // handle enter key detection
+   const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      handleLoginClick()
+    }
+  }
 
   React.useEffect(() => {
     if (inputErrorState.current) {
@@ -18,13 +24,6 @@ const PasswordVerify = () => {
     }
     document.addEventListener('keydown', handleKeyDown)
   })
-
-  // handle enter key detection
-  const handleKeyDown = (event: any) => {
-    if (event.key === 'Enter') {
-      handleLoginClick()
-    }
-  }
 
   const handleLoginClick = () => {
     // logic to check password
@@ -38,7 +37,7 @@ const PasswordVerify = () => {
           <p>Use your A Auth service Account</p>
         </div>
         <div className='email_form'>
-          <input type="email"
+          <input type="password"
             placeholder='Email password'
             onChange={(e) => setPassword(e.target.value)}
             className='email_input'
