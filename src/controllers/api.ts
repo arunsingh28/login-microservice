@@ -16,8 +16,8 @@ export function apiRouter(router: Express) {
         if (email === '' || mail === '' || email === undefined || mail === undefined || email === null || mail === null) {
             return res.status(400).json({ message: 'Please fill all fields', fallBackUrl: url })
         }
-        if(url === undefined || url === '' || url === null){
-            return res.status(400).json({message: 'Fallback url not found', fallBackUrl: 'https://arunsingh28.me'})
+        if (url === undefined || url === '' || url === null) {
+            return res.status(400).json({ message: 'Fallback url not found', fallBackUrl: 'https://arunsingh28.me' })
         }
         if (mail === email) {
             const isUser = await _user.findOne({ email })
@@ -57,7 +57,7 @@ export function apiRouter(router: Express) {
             }
         }
     })
-// update this API
+    // update this API
     router.post('/register', async (req: Request, res: Response) => {
         const { email, name, password } = req.body
         if (email === '' || name === '' || password === '' || email === undefined || name === undefined || password === undefined || email === null || name === null || password === null) {
