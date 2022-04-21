@@ -1,5 +1,8 @@
+
+
 const getHost =()=>{
     const host = localStorage.getItem('fallback') 
+    
     if(!host){
         return false
     }

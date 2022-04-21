@@ -5,7 +5,7 @@ import React from 'react';
 
 
 const Router = () => {
-  const [state, setState] = React.useState(localStorage.getItem('red_') || "false")
+  const [state, setState] = React.useState()
 
   if (state == "true") {
     return (
@@ -13,7 +13,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<EmailVerify />} />
           <Route path="/password-verify" element={<PasswordVerify />} />
-          <Route path="*" element={<p>There's nothing here: 404!</p>} />
+          <Route path="*" element={<h1>Hello world</h1>} />
         </Routes>
       </BrowserRouter>
     )

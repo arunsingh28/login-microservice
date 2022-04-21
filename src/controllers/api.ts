@@ -36,6 +36,7 @@ export function apiRouter(router: Express) {
     router.post('/p/challenge/v2/verify/?', async (req: Request, res: Response) => {
         const { password } = req.body;
         const { url, token } = req.query as any;
+        console.log('Password',password,'url',url,'token',token)
         if (password === '' || password === undefined || password === null) {
             return res.status(400).json({ message: 'Please fill all fields' })
         } else {

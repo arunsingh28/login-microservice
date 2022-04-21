@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import getHost from '../utils/getHost'
 import apiCall from '../utils/axios'
+import animatedSvg from '../assets/Rolling.gif'
 
 const EmailVerify = () => {
 
   const [email, setEmail] = React.useState('')
   const [isError, setIsError] = React.useState('')
+  const [isLoading,setIsLoading] = React.useState(false)
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const navigate = useNavigate()
 
@@ -41,10 +43,12 @@ const EmailVerify = () => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
-      apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`,email).then(()=>{
-        cookies.set('red_',true)
+      setIsError('')
+      setIsLoading(true)
+      apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`, email).then(() => {
+        cookies.set('red_', true)
         return navigate('/password-verify')
-      }).catch((e)=>{
+      }).catch((e) => {
         console.log(e)
       })
     }
@@ -78,7 +82,11 @@ const EmailVerify = () => {
         </div>
         <div className='other_btn'>
           <a href="http://localhost:80/register">Create account</a>
-          <button onClick={handleNextClick}>Next</button>
+          <button onClick={handleNextClick} className="flex" disabled={isLoading}>
+            {
+              isLoading ? <img src={animatedSvg} height="20"/> : 'Next'
+            }
+            </button>
         </div>
       </div>
     </div>
@@ -86,9 +94,3 @@ const EmailVerify = () => {
 }
 
 export default EmailVerify
-
-
-function data(arg0: string, data: any, arg2: { email: string }) {
-  throw new Error('Function not implemented.')
-}
-

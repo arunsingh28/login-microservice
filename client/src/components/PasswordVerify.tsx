@@ -9,10 +9,11 @@ const PasswordVerify = () => {
   const [password, setPassword] = React.useState('')
   const [isError, setIsError] = React.useState('')
   const inputErrorState = React.useRef<HTMLInputElement | any>()
+
   const navigate = useNavigate()
 
-   // handle enter key detection
-   const handleKeyDown = (event: any) => {
+  // handle enter key detection
+  const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       handleLoginClick()
     }
@@ -27,6 +28,7 @@ const PasswordVerify = () => {
 
   const handleLoginClick = () => {
     // logic to check password
+   
   }
 
   return (
