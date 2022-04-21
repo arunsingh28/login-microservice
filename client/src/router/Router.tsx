@@ -14,7 +14,6 @@ const Router = () => {
           <Route path="/" element={<EmailVerify />} />
           <Route path="/password-verify" element={<PasswordVerify />} />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
-          <Navigate to="/" replace/>
         </Routes>
       </BrowserRouter>
     )
