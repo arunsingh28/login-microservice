@@ -9,8 +9,6 @@ const apiCall = async(url:string,payload:string)=>{
      },
      body: payload
    })
-   console.log (await (await call).json())
-   return (await call).json
 }
 
 
