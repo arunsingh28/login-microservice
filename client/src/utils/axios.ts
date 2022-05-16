@@ -1,11 +1,18 @@
-import axios from 'axios'
+const apiCall = async (url: string, method: string, payload: string) => {
 
-export const apiCall = async (url: string, params: string) => {
-    const res = await axios(url, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        data: params
-    })
+  const headers = new Headers()
+
+  headers.append('Content-Type', 'application/json')
+
+  const call = fetch(`http://localhost:80${url}`, {
+    method,
+    headers,
+    body: JSON.stringify({ email: payload })
+  }).then(async res => {
+    return await res.json()
+  })
+    .catch(err => console.log(err))
 }
+
+
+export default apiCall

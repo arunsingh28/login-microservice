@@ -122,7 +122,7 @@
                 background-color: #1a73e8;
                 border: none;
                 border-radius: 3px;
-                transition: all 0.1s ease-in-out;
+                transition: all 0.2s ease-in-out;
                 cursor: pointer;
                 &:hover {
                     border-radius: 3px;
@@ -133,3 +133,19 @@
         // end email_wrapper
     }
 }
+
+.animate-spin{
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
