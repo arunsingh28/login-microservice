@@ -1,7 +1,7 @@
 import React from 'react'
 import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
-
+import { useAuth } from '../ProtectedRouter'
 
 const EmailVerify = () => {
 
@@ -32,6 +32,8 @@ const EmailVerify = () => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
+      const authState = useAuth()
+      authState(isLogged)
       localStorage.setItem('red_', "true")
       return navigate('/password-verify')
     }
