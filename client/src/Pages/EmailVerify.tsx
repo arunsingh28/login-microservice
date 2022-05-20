@@ -1,14 +1,7 @@
 import React from 'react'
 import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
-<<<<<<< HEAD:client/src/Pages/EmailVerify.tsx
-import { useAuth } from '../ProtectedRouter'
-=======
-import Cookies from 'universal-cookie'
-import getHost from '../utils/getHost'
-import apiCall from '../utils/axios'
 import animatedSvg from '../assets/Rolling.gif'
->>>>>>> 1ef3f1c3549415383c39bb5e9ceea32368b4d865:client/src/components/EmailVerify.tsx
 
 const EmailVerify = () => {
 
@@ -24,7 +17,7 @@ const EmailVerify = () => {
 
 
   // init cookies 
-  const cookies = new Cookies()
+  // const cookies = new Cookies()
 
 
   React.useEffect(() => {
@@ -48,30 +41,10 @@ const EmailVerify = () => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
-<<<<<<< HEAD:client/src/Pages/EmailVerify.tsx
-      const authState = useAuth()
-      authState(isLogged)
+      // const authState = useAuth()
+      // authState(isLogged)
       localStorage.setItem('red_', "true")
       return navigate('/password-verify')
-=======
-      setIsError('')
-      // setIsLoading(true)
-      // const c = await apiCall(``, 'POST', email)
-      const urll = `/e/challenge/v1/verify/?e=${email}&url=${getHost()}`
-      // const c = await apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`, 'POST', email)
-      // console.log('CALL', c)
-
-      fetch(`http://localhost:80${urll}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email })
-      }).then(async res => {
-        console.log(setData(await res.json()))
-      }).catch(err => console.log(err))
-      console.log(data)
->>>>>>> 1ef3f1c3549415383c39bb5e9ceea32368b4d865:client/src/components/EmailVerify.tsx
     }
   }
 
