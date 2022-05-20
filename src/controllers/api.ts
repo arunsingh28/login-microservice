@@ -10,9 +10,12 @@ import { getToken, verifyToken } from '../utils/jwt'
  */
 
 export function apiRouter(router: Express) {
-    router.post('/e/challenge/v1/verify/?', async (req: Request, res: Response) => {
-        const { email } = req.body
-        const { e: mail, url } = req.query
+    router.get('/e', async (req: Request, res: Response) => {
+        // const { email } = req.body
+        let email = 'arunsingh28aug.as@gmail.com'
+        let url = 'http://localhost:3000/e/'
+        let mail = 'arunsingh28aug.as@gmail.com'
+        // const { e: mail, url } = req.query
         console.log('Email body:', email, 'Email Query', mail, 'URL',url)
         if (email === '' || mail === '' || email === undefined || mail === undefined || email === null || mail === null) {
             return res.status(400).json({ message: 'Please fill all fields', fallBackUrl: url })

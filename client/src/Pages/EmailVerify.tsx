@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import ErrorLogo from '../components/ErrorLogo'
 import { useNavigate } from 'react-router-dom'
 import animatedSvg from '../assets/Rolling.gif'
@@ -41,6 +42,18 @@ const EmailVerify = () => {
 
   return (
     <div className='root_wrapper'>
+      {
+        isLoading && <h1>...Loading</h1>
+      }
+      {
+        isSuccess && <h1>Success</h1>
+      }
+      {
+        isFetching && <h1>...Fetching</h1>
+      }
+      {
+        error && <h1>someting went wrong</h1>
+      }
       <div className='email_wrapper'>
         <div className='email_header'>
           <h2>Arun's Auth</h2>
@@ -66,7 +79,7 @@ const EmailVerify = () => {
           </div>
         </div>
         <div className='other_btn'>
-          <a href="http://localhost:80/register">Create account</a>
+          <Link to="/create-account">Create account</Link>
           <button onClick={handleNextClick} className="flex" disabled={isLoadingAnimation}>
             {
               isLoadingAnimation ? <img src={animatedSvg} height="20" /> : 'Next'

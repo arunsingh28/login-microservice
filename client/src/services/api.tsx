@@ -8,11 +8,11 @@ export interface IEmailVerify {
 export const emailApi = createApi({
     reducerPath: 'email',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:80/'
+        baseUrl: 'http://localhost:80/',
     }),
     endpoints: (builder) => ({
         verifyEmail: builder.query<IEmailVerify, void>({
-            query: () => '/email-verify'
+            query: () => '/e'
         }),
     })
 })
