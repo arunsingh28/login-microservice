@@ -1,31 +1,26 @@
 import { BrowserRouter, Route, Routes, Navigate, } from 'react-router-dom';
-import EmailVerify from '../components/EmailVerify';
-import PasswordVerify from '../components/PasswordVerify';
-import React from 'react';
+import EmailVerify from '../Pages/EmailVerify';
+import PasswordVerify from '../Pages/PasswordVerify';
+import React, { useState } from 'react';
+import ProtectedRouter from '../ProtectedRouter';
 
 
 const Router = () => {
-  const [state, setState] = React.useState()
 
-  if (state == "true") {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<EmailVerify />} />
-          <Route path="/password-verify" element={<PasswordVerify />} />
-          <Route path="*" element={<h1>Hello world</h1>} />
-        </Routes>
-      </BrowserRouter>
-    )
-  }
-  else {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<EmailVerify />} />
-        </Routes>
-      </BrowserRouter>
-    )
-  }
+  const [auth, setAuth] = useState(false)
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<EmailVerify />} />
+        <Route path='*' element={<h1>Page not found</h1>} />
+        <Route
+          path="/private"
+          element={
+            <ProtectedRouter Component={PasswordVerify} authState={auth} />
+          } />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 export default Router
