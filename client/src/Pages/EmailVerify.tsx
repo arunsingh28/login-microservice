@@ -1,24 +1,18 @@
 import React from 'react'
-import ErrorLogo from './ErrorLogo'
+import ErrorLogo from '../components/ErrorLogo'
 import { useNavigate } from 'react-router-dom'
 import animatedSvg from '../assets/Rolling.gif'
+import { useVerifyEmailQuery } from '../services/api'
 
 const EmailVerify = () => {
 
   const [email, setEmail] = React.useState('')
   const [isError, setIsError] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [data, setData] = React.useState()
+  const [isLoadingAnimation, setIsLoadingAnimation] = React.useState(false)
   const inputErrorState = React.useRef<HTMLInputElement | any>()
-  const navigate = useNavigate()
 
 
-  // localhost:80/e/challenge/v1/verify/?e=arunsingh28aug.as@gmail.co&url=localhost:80
-
-
-  // init cookies 
-  // const cookies = new Cookies()
-
+  const { data, error, isLoading, isSuccess, isFetching } = useVerifyEmailQuery()
 
   React.useEffect(() => {
     if (inputErrorState.current) {
@@ -41,10 +35,7 @@ const EmailVerify = () => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
-      // const authState = useAuth()
-      // authState(isLogged)
-      localStorage.setItem('red_', "true")
-      return navigate('/password-verify')
+      setIsLoadingAnimation(true)
     }
   }
 
@@ -76,9 +67,9 @@ const EmailVerify = () => {
         </div>
         <div className='other_btn'>
           <a href="http://localhost:80/register">Create account</a>
-          <button onClick={handleNextClick} className="flex" disabled={isLoading}>
+          <button onClick={handleNextClick} className="flex" disabled={isLoadingAnimation}>
             {
-              isLoading ? <img src={animatedSvg} height="20" /> : 'Next'
+              isLoadingAnimation ? <img src={animatedSvg} height="20" /> : 'Next'
             }
           </button>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorLogo from './ErrorLogo'
+import ErrorLogo from '../components/ErrorLogo'
 import { useNavigate } from 'react-router-dom'
 
 
