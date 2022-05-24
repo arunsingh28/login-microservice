@@ -3,14 +3,15 @@ import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import getHost from '../utils/getHost'
-import apiCall from '../utils/axios'
+// import apiCall from '../utils/axios'
 import animatedSvg from '../assets/Rolling.gif'
 
 const EmailVerify = () => {
 
   const [email, setEmail] = React.useState('')
   const [isError, setIsError] = React.useState('')
-  const [isLoading,setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [data, setData] = React.useState()
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const navigate = useNavigate()
 
@@ -27,7 +28,7 @@ const EmailVerify = () => {
       inputErrorState.current.focus()
     }
     document.addEventListener('keydown', handleKeyDown)
-  })
+  }, [])
 
   // handle enter key detection
   const handleKeyDown = (event: any) => {
@@ -36,7 +37,7 @@ const EmailVerify = () => {
     }
   }
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (!email.length || email.includes('.') === false || email.includes('@') === false) {
       setIsError('Enter valid email address')
       inputErrorState.current.focus()
@@ -44,13 +45,22 @@ const EmailVerify = () => {
     }
     else {
       setIsError('')
-      setIsLoading(true)
-      apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`, email).then(() => {
-        cookies.set('red_', true)
-        return navigate('/password-verify')
-      }).catch((e) => {
-        console.log(e)
-      })
+      // setIsLoading(true)
+      // const c = await apiCall(``, 'POST', email)
+      const urll = `/e/challenge/v1/verify/?e=${email}&url=${getHost()}`
+      // const c = await apiCall(`/e/challenge/v1/verify/?e=${email}&url=${getHost()}`, 'POST', email)
+      // console.log('CALL', c)
+
+      fetch(`http://localhost:80${urll}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      }).then(async res => {
+        console.log(setData(await res.json()))
+      }).catch(err => console.log(err))
+      console.log(data)
     }
   }
 
@@ -84,9 +94,9 @@ const EmailVerify = () => {
           <a href="http://localhost:80/register">Create account</a>
           <button onClick={handleNextClick} className="flex" disabled={isLoading}>
             {
-              isLoading ? <img src={animatedSvg} height="20"/> : 'Next'
+              isLoading ? <img src={animatedSvg} height="20" /> : 'Next'
             }
-            </button>
+          </button>
         </div>
       </div>
     </div>

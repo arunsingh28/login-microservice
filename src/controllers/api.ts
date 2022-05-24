@@ -13,6 +13,7 @@ export function apiRouter(router: Express) {
     router.post('/e/challenge/v1/verify/?', async (req: Request, res: Response) => {
         const { email } = req.body
         const { e: mail, url } = req.query
+        console.log('Email body:', email, 'Email Query', mail, 'URL',url)
         if (email === '' || mail === '' || email === undefined || mail === undefined || email === null || mail === null) {
             return res.status(400).json({ message: 'Please fill all fields', fallBackUrl: url })
         }
@@ -36,7 +37,7 @@ export function apiRouter(router: Express) {
     router.post('/p/challenge/v2/verify/?', async (req: Request, res: Response) => {
         const { password } = req.body;
         const { url, token } = req.query as any;
-        console.log('Password',password,'url',url,'token',token)
+        console.log('Password', password, 'url', url, 'token', token)
         if (password === '' || password === undefined || password === null) {
             return res.status(400).json({ message: 'Please fill all fields' })
         } else {
