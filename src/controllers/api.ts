@@ -33,35 +33,31 @@ export function apiRouter(router: Express) {
         }
     })
 
-    router.post('/p/challenge/v2/verify-password/', async (req: Request, res: Response) => {
+    router.post('/p/challenge/v2/verify-password', async (req: Request, res: Response) => {
         const { password } = req.body;
         const { url, id: email } = req.query as any;
-        console.log('Password', password, 'url', url)
+        console.log('Password', password, 'url', url, 'email', email)
         if (password === '' || password === undefined || password === null) {
             return res.status(400).json({ authState: 0, message: 'Please fill all fields' })
         } else {
             // const userId = await verifyToken(token);
             const isUser = await _user.findOne({ email })
-            const isMatch = await isUser.findUserPassword(email, password)
+            const isMatch = await isUser.comparePassword(password)
 
             console.log(isMatch)
 
-
-            // if (<any>userId) {
-            //     const isUser = await (<IUser><unknown>_user).findUserById(<any>userId, password)
-            //     if (isUser) {
-            //         return res.status(200).json({
-            //             authState: 0, callbackUrl: url, data: [
-            //                 // return allowed data
-            //                 isUser
-            //             ]
-            //         })
-            //     } else {
-            //         res.status(404).json({ message: 'incorrect password', authState: 1, errorCode: 'ERR_INCORRECT_PASSWORD', fallBackUrl: url })
-            //     }
-            // } else {
-            //     return res.status(401).send({ message: 'Tempered token' })
-            // }
+            if (!isMatch) {
+                return res.json({
+                    authState: 0, message: 'Password is incoorect'
+                })
+            } else {
+                const jwtToken = await getToken(isUser._id)
+                return res.json({
+                    authState: 1,
+                    access_token: jwtToken,
+                    message: 'User authorize'
+                })
+            }
         }
     })
     // update this API
@@ -73,7 +69,7 @@ export function apiRouter(router: Express) {
         if (password?.length < 6) {
             return res.status(400).send({ message: 'Please enter 6 charcter' })
         }
-        const isUser = await (<IUser><unknown>_user).findUserPassword(email, password);
+        const isUser = await (<IUser><unknown>_user).findUser(email, password);
         if (isUser) {
             return res.status(400).json({ message: 'User already exists' })
         } else {

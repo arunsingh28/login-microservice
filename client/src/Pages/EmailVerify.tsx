@@ -31,7 +31,7 @@ const EmailVerify = () => {
   }
 
   async function getVerifyEmail() {
-    await fetch('http://localhost:80/e/challenge/v1/verify?url=arunsingn', {
+    await fetch(`http://localhost:80/e/challenge/v1/verify?url=arunsingn`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
