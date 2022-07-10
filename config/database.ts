@@ -4,7 +4,8 @@ export async function dbConection() {
 
     console.log('database being connecting...')
 
-    const devMode = false;
+
+    const devMode = true;
 
     await mongoose.connect(devMode ? 'mongodb+srv://arun:1234@cluster0.t3qon.mongodb.net/login-microservice?retryWrites=true&w=majority' : 'mongodb://localhost:27017/login-micorservice', {
         useNewUrlParser: true,

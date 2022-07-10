@@ -12,22 +12,22 @@ import { getToken, verifyToken } from '../utils/jwt'
 export function apiRouter(router: Express) {
     router.post('/e/challenge/v1/verify/?', async (req: Request, res: Response) => {
         const { email } = req.body
-        const { e: mail, url } = req.query
-        console.log('Email body:', email, 'Email Query', mail, 'URL',url)
-        if (email === '' || mail === '' || email === undefined || mail === undefined || email === null || mail === null) {
+        const { url } = req.query
+        console.log('Email body:', email, 'Email Query', 'URL', url)
+        if (email === '' || email === undefined || email === null) {
             return res.status(400).json({ message: 'Please fill all fields', fallBackUrl: url })
         }
         if (url === undefined || url === '' || url === null) {
             return res.status(400).json({ message: 'Fallback url not found', fallBackUrl: 'https://arunsingh28.me' })
         }
-        if (mail === email) {
+        if (email) {
             const isUser = await _user.findOne({ email })
             console.log(isUser)
             if (isUser) {
-                const jwtToken = await getToken(isUser._id)
-                return res.status(200).json({ authState: 1, token: jwtToken })
+                // const jwtToken = await getToken(isUser._id)
+                return res.status(200).json({ authState: 1 })
             } else {
-                res.status(404).json({ message: 'User not found' })
+                res.status(404).json({ authState: 0, message: 'User not found' })
             }
         } else {
             return res.status(201).json({ message: 'Somethig wrong with user input data', state: 1, errorCode: 'ERR_DATA_PARSER', fallBackUrl: url })
