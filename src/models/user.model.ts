@@ -5,7 +5,7 @@ export interface IUser extends mongoose.Document {
     email: string;
     password: string;
     name: string;
-    findUser: (email: string, password: string) => Promise<IUser>;
+    findUserPassword: (email: string, password: string) => boolean;
     findUserById: (id: string, password: string) => Promise<IUser>;
 }
 
@@ -26,12 +26,14 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
-UserSchema.statics.findUser = async function (email: string, password: string) {
+UserSchema.statics.findUserPassword = async function (email: string, password: string) {
     const user = await this.findOne({ email })
-    if (!user) return null
+    // if user not found
+    if (!user) return false
     const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) return null
-    return user
+    // if user password not match 
+    if (!isMatch) return false
+    return true
 }
 
 UserSchema.statics.findUserById = async function (id: string, password: string) {

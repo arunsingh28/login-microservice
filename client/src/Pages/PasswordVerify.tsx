@@ -28,7 +28,7 @@ const PasswordVerify = () => {
 
   const handleLoginClick = () => {
     // logic to check password
-   
+
   }
 
   return (
@@ -41,6 +41,7 @@ const PasswordVerify = () => {
         <div className='email_form'>
           <input type="password"
             placeholder='Email password'
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className='email_input'
             ref={inputErrorState}
