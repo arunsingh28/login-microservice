@@ -1,28 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ErrorLogo from './ErrorLogo'
 import { useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
-import getHost from '../utils/getHost'
 import animatedSvg from '../assets/Rolling.gif'
 
-const EmailVerify = ({state,authState}:any) => {
-
-  console.log('STATE:',state())
-  console.log('AUTH_STATE:',authState)
-
-
-  // test ------------------------------
-  const [newState,setNewState] = useState(authState)
-  console.log('FROM_AUTH_STATE:',newState)
+const EmailVerify = () => {
 
   const [email, setEmail] = React.useState('')
   const [isError, setIsError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
-  const [data, setData] = React.useState()
   const inputErrorState = React.useRef<HTMLInputElement | any>()
+  const [errorMessage, setErrorMessage] = React.useState('')
+
+  const callbackURL = 'https://www.arunsingh28.live'
+
   const navigate = useNavigate()
-
-
 
 
   React.useEffect(() => {
@@ -39,6 +30,23 @@ const EmailVerify = ({state,authState}:any) => {
     }
   }
 
+  async function getVerifyEmail() {
+    await fetch('http://localhost:80/e/challenge/v1/verify?url=arunsingn', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    }).then(res => res.json())
+      .then(data => {
+        if (data.authState === 0) {
+          setIsLoading(false)
+          setErrorMessage(data.message)
+        }
+        else navigate(`/verify-password?id=${email}&callbackurl=${callbackURL}`)
+      })
+  }
+
   const handleNextClick = async () => {
     if (!email.length || email.includes('.') === false || email.includes('@') === false) {
       setIsError('Enter valid email address')
@@ -46,10 +54,8 @@ const EmailVerify = ({state,authState}:any) => {
       inputErrorState.current.style.borderColor = 'red'
     }
     else {
-      // const authState = useAuth()
-      // authState(isLogged)
-      localStorage.setItem('red_', "true")
-      return navigate('/password-verify')
+      setIsLoading(true)
+      getVerifyEmail()
     }
   }
 
@@ -59,6 +65,9 @@ const EmailVerify = ({state,authState}:any) => {
         <div className='email_header'>
           <h2>Arun's Auth</h2>
           <p>Use your A Auth service Account</p>
+          {
+            errorMessage && <div className='error-message'>{errorMessage}</div>
+          }
         </div>
         <div className='email_form'>
           <input type="email"

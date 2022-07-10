@@ -149,3 +149,14 @@
       transform: rotate(360deg);
     }
   }
+
+
+  .error-message{
+    border: 2px solid rgb(251, 165, 45);
+    font-size: 12px;
+    background-color: rgb(247, 178, 81);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-top: 20px;
+  }
