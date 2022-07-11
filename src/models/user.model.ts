@@ -5,6 +5,7 @@ export interface IUser extends mongoose.Document {
     email: string;
     password: string;
     name: string;
+    comparePassword(password:string) : Promise<boolean>;
     findUser: (email: string, password: string) => Promise<IUser>;
     findUserById: (id: string, password: string) => Promise<IUser>;
 }
@@ -44,6 +45,11 @@ UserSchema.statics.findUserById = async function (id: string, password: string) 
         name: user.name,
         email: user.email,
     }
+}
+
+UserSchema.methods.comparePassword = async function (userPassword: string){
+    const user = this as IUser;
+    return bcrypt.compare(userPassword, user.password).catch(e => false)
 }
 
 UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
