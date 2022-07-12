@@ -1,6 +1,6 @@
 import React from 'react'
 import ErrorLogo from './ErrorLogo'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import animatedSvg from '../assets/Rolling.gif'
 
 const EmailVerify = () => {
@@ -11,7 +11,9 @@ const EmailVerify = () => {
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const [errorMessage, setErrorMessage] = React.useState('')
 
-  const callbackURL = 'https://www.arunsingh28.live'
+  const location = useLocation()
+  const callbackURL = location.search.slice(7)
+
 
   const navigate = useNavigate()
 
@@ -31,7 +33,7 @@ const EmailVerify = () => {
   }
 
   async function getVerifyEmail() {
-    await fetch(`http://localhost:80/e/challenge/v1/verify?url=arunsingn`, {
+    await fetch(`https://login-microservice12.herokuapp.com/e/challenge/v1/verify?url=${callbackURL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
