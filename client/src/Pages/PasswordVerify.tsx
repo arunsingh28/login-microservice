@@ -87,7 +87,7 @@ const PasswordVerify = () => {
             )
           }
           <div>
-            <a href="/forgot-email">Forgot password ?</a>
+            <a href="/">Forgot password ?</a>
           </div>
         </div>
         <div className='other_btn'>

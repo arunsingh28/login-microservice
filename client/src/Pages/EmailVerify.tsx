@@ -91,7 +91,7 @@ const EmailVerify = () => {
           </div>
         </div>
         <div className='other_btn'>
-          <a href="http://localhost:80/register">Create account</a>
+          <a href="https://login-microservice12.herokuapp.com">Create account</a>
           <button onClick={handleNextClick} className="flex" disabled={isLoading}>
             {
               isLoading ? <img src={animatedSvg} height="20" /> : 'Next'
