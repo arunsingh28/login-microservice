@@ -6,14 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup interface</title>
+    
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.19.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
     <form name="register" onsubmit="return handleSubmit(event)">
-        <input type="text" placeholder="Name" id="name">
-        <input type="text" placeholder="email" id="email">
-        <input type="text" placeholder="password" id="password">
-        <button type="submit">Create account</button>
+        <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text">What is your name?</span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+  <input type="text" placeholder="Name" id="name" class="input input-bordered w-full max-w-xs" />
+  <label class="label">
+    <span class="label-text-alt">Alt label</span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+</div>
+<!--                                 for email -->
+                                
+                                <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text">What is your name?</span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+  <input type="email" placeholder="Email" id="email" class="input input-bordered w-full max-w-xs" />
+  <label class="label">
+    <span class="label-text-alt">Alt label</span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+</div>
+        
+        
+    
+       <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text">Password </span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+  <input type="text" placeholder="Password" id="password" class="input input-bordered w-full max-w-xs" />
+  <label class="label">
+    <span class="label-text-alt">Alt label</span>
+    <span class="label-text-alt">Alt label</span>
+  </label>
+</div>
+        <button type="submit" class="btn btn-success">Create account</button>
     </form>
 </body>
 
