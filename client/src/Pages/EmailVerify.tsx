@@ -21,7 +21,7 @@ const EmailVerify = () => {
     if (cbName == null || cbName == '') {
       alert('Please enter the fallback url it require.')
     }else{
-      window.location.href = `http://localhost:3000/?UrlCB=${cbName}`
+      window.location.href = `https://login-microservice.vercel.app/?UrlCB=${cbName}`
     }
   }
   console.log('url ',cbName)
