@@ -33,7 +33,7 @@ const PasswordVerify = () => {
   })
 
   async function getVerifyPassword() {
-    await fetch(`http://localhost:80/p/challenge/v2/verify-password?url=${fallbackUrl}&id=${email}`, {
+    await fetch(`https://login-microservice12.herokuapp.com/p/challenge/v2/verify-password?url=${fallbackUrl}&id=${email}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ const PasswordVerify = () => {
             )
           }
           <div>
-            <a href="/forgot-email">Forgot password ?</a>
+            <a href="/">Forgot password ?</a>
           </div>
         </div>
         <div className='other_btn'>
