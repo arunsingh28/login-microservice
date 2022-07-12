@@ -12,7 +12,20 @@ const EmailVerify = () => {
   const [errorMessage, setErrorMessage] = React.useState('')
 
   const location = useLocation()
+
   const callbackURL = location.search.slice(7)
+  let cbName: any;
+  
+  if (callbackURL === '') {
+    cbName = prompt('Please enter fallback url. example https://facebook.com')
+    if (cbName == null || cbName == '') {
+      alert('Please enter the fallback url it require.')
+    }else{
+      window.location.href = `http://localhost:3000/?UrlCB=${cbName}`
+    }
+  }
+  console.log('url ',cbName)
+
 
 
   const navigate = useNavigate()
