@@ -1,6 +1,6 @@
 import React from 'react'
 import ErrorLogo from './ErrorLogo'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import animatedSvg from '../assets/Rolling.gif'
 
 const EmailVerify = () => {
@@ -11,7 +11,22 @@ const EmailVerify = () => {
   const inputErrorState = React.useRef<HTMLInputElement | any>()
   const [errorMessage, setErrorMessage] = React.useState('')
 
-  const callbackURL = 'https://www.arunsingh28.live'
+  const location = useLocation()
+
+  const callbackURL = location.search.slice(7)
+  let cbName: any;
+  
+  if (callbackURL === '') {
+    cbName = prompt('Please enter fallback url. example https://facebook.com')
+    if (cbName == null || cbName == '') {
+      alert('Please enter the fallback url it require.')
+    }else{
+      window.location.href = `https://login-microservice.vercel.app/?UrlCB=${cbName}`
+    }
+  }
+  console.log('url ',cbName)
+
+
 
   const navigate = useNavigate()
 
@@ -31,7 +46,7 @@ const EmailVerify = () => {
   }
 
   async function getVerifyEmail() {
-    await fetch(`http://localhost:80/e/challenge/v1/verify?url=arunsingn`, {
+    await fetch(`https://login-microservice12.herokuapp.com/e/challenge/v1/verify?url=${callbackURL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +104,7 @@ const EmailVerify = () => {
           </div>
         </div>
         <div className='other_btn'>
-          <a href="http://localhost:80/register">Create account</a>
+          <a href="https://login-microservice12.herokuapp.com">Create account</a>
           <button onClick={handleNextClick} className="flex" disabled={isLoading}>
             {
               isLoading ? <img src={animatedSvg} height="20" /> : 'Next'

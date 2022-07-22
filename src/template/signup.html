@@ -6,14 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup interface</title>
+    
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.19.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <form name="register" onsubmit="return handleSubmit(event)">
-        <input type="text" placeholder="Name" id="name">
-        <input type="text" placeholder="email" id="email">
-        <input type="text" placeholder="password" id="password">
-        <button type="submit">Create account</button>
+    <form name="register" onsubmit="return handleSubmit(event)" class="p-10">
+        <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text">What is your name?</span>
+  </label>
+  <input type="text" placeholder="Name" id="name" class="input input-bordered w-full max-w-xs" />
+
+</div>
+<!--                                 for email -->
+                                
+                                <div class="form-control w-full max-w-xs mt-5">
+  <label class="label">
+    <span class="label-text">What is your email?</span>
+ 
+  </label>
+  <input type="email" placeholder="Email" id="email" class="input input-bordered w-full max-w-xs" />
+
+</div>
+        
+        
+    
+       <div class="form-control w-full max-w-xs mt-5">
+  <label class="label">
+    <span class="label-text">What is your Password ?</span>
+ 
+  </label>
+  <input type="text" placeholder="Password" id="password" class="input input-bordered w-full max-w-xs" />
+
+</div>
+        <button type="submit" class="btn btn-success text-white mt-8">Create account</button>
     </form>
 </body>
 
@@ -29,7 +57,7 @@
             alert('Please fill all the fields');
             return false;
         }
-        const f = await fetch('http://localhost/register', {
+        const f = await fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

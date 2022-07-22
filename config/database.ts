@@ -7,7 +7,7 @@ export async function dbConection() {
 
     const devMode = true;
 
-    await mongoose.connect(devMode ? 'mongodb+srv://arun:1234@cluster0.t3qon.mongodb.net/login-microservice?retryWrites=true&w=majority' : 'mongodb://localhost:27017/login-micorservice', {
+    await mongoose.connect('mongodb+srv://arun:1234@cluster0.t3qon.mongodb.net/login-microservice?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -17,5 +17,4 @@ export async function dbConection() {
     conSuccess.on('error', console.error.bind(console, 'connection error:'));
 
     console.log('MongoDB Connected')
-
 }
