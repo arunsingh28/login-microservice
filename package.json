@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/src/app.js",
+    "build-server": "tsc -p .",
     "build": "tsc -p . && cd client && npm run build",
     "server": "nodemon -L --config nodemon.json src/app.ts",
     "client": "cd client && npm start",

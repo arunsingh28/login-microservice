@@ -37,11 +37,14 @@ export function apiRouter(router: Express) {
         const { password } = req.body;
         const { url, id: email } = req.query as any;
         console.log('Password', password, 'url', url, 'email', email)
-        if (password === '' || password === undefined || password === null) {
+        if (password === '' || password === undefined || password === null || email === '' || email === undefined || email === null || url === '' || url === undefined || url === null) {
             return res.status(400).json({ authState: 0, message: 'Please fill all fields' })
         } else {
             // const userId = await verifyToken(token);
             const isUser = await _user.findOne({ email })
+
+            console.log('isUser', isUser)
+
             const isMatch = await isUser.comparePassword(password)
 
             console.log(isMatch)
