@@ -58,7 +58,7 @@ export function apiRouter(router: Express) {
                 return res.json({
                     authState: 1,
                     access_token: jwtToken,
-                    message: 'User authorize'
+                    message: `${isUser.name} is logged in`
                 })
             }
         }
